@@ -1,0 +1,37 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Install base packages
+      apt:
+        name: [curl, git, vim, htop, ufw, unzip]
+        update_cache: yes
+        state: present
+
+    - name: Create app directory
+      file: { path: /opt/ecommerce, state: directory, owner: ubuntu }
+
+    - name: Set timezone
+      timezone: { name: Asia/Kolkata }
+
+- hosts: elk
+  become: true
+  tasks:
+    - name: Install Docker and compose
+      apt:
+        name: [docker.io, docker-compose-v2]
+        state: present
+    - name: Start Docker
+      service: { name: docker, state: started, enabled: yes }
+    - name: Add user to docker group
+      user: { name: ubuntu, groups: docker, append: yes }
+    - name: Set vm.max_map_count for Elasticsearch
+      sysctl: { name: vm.max_map_count, value: "262144", state: present, reload: yes }
+
+- hosts: k3s
+  become: true
+  tasks:
+    - name: Install k3s
+      shell: curl -sfL https://get.k3s.io | sh -s - --tls-san {{ ansible_host }}
+      args: { creates: /usr/local/bin/k3s }
+    - name: Ensure k3s is running
+      service: { name: k3s, state: started, enabled: yes }

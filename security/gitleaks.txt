@@ -1,0 +1,73 @@
+
+    ○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks
+
+Finding:     "private_key": "[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m\n",
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m
+RuleID:      private-key
+Entropy:     6.006115
+File:        /repo/monitoring/grafana/my-second-project-495308-750c204b24d3.json
+Line:        5
+Fingerprint: /repo/monitoring/grafana/my-second-project-495308-750c204b24d3.json:private-key:5
+
+Finding:     "private_key": "[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m\n",
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m
+RuleID:      private-key
+Entropy:     6.018874
+File:        /repo/monitoring/grafana/my-second-project-495308-7dd8826ec01b.json
+Line:        5
+Fingerprint: /repo/monitoring/grafana/my-second-project-495308-7dd8826ec01b.json:private-key:5
+
+Finding:     ...ivate_key": "[1;3;m[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m\nMIIEvAIBADANBgkqhk...
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m
+RuleID:      private-key
+Entropy:     5.140269
+File:        /repo/security/gitleaks.txt
+Line:        8
+Fingerprint: /repo/security/gitleaks.txt:private-key:8
+
+Finding:     ...ivate_key": "[1;3;m[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m\nMIIEvAIBADANBgkqhk...
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m
+RuleID:      private-key
+Entropy:     5.184945
+File:        /repo/security/gitleaks.txt
+Line:        16
+Fingerprint: /repo/security/gitleaks.txt:private-key:16
+
+Finding:     ...ey": "[1;3;m[1;3;m[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m\nMIIEvAIBADANBgkqhk...
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m
+RuleID:      private-key
+Entropy:     5.090223
+File:        /repo/security/gitleaks.txt
+Line:        24
+Fingerprint: /repo/security/gitleaks.txt:private-key:24
+
+Finding:     ...ey": "[1;3;m[1;3;m[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m\nMIIEvAIBADANBgkqhk...
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m
+RuleID:      private-key
+Entropy:     5.142578
+File:        /repo/security/gitleaks.txt
+Line:        32
+Fingerprint: /repo/security/gitleaks.txt:private-key:32
+
+Finding:     ...[1;3;m[1;3;m[1;3;m[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m\nMIIEvAIBADANBgkqhk...
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD0EhCwmO7NCXow\nlcZB8...[0m
+RuleID:      private-key
+Entropy:     5.090223
+File:        /repo/security/gitleaks.txt
+Line:        40
+Fingerprint: /repo/security/gitleaks.txt:private-key:40
+
+Finding:     ...[1;3;m[1;3;m[1;3;m[1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m\nMIIEvAIBADANBgkqhk...
+Secret:      [1;3;m-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC43QK0E9yCFJdC\nf6H+J...[0m
+RuleID:      private-key
+Entropy:     5.142578
+File:        /repo/security/gitleaks.txt
+Line:        48
+Fingerprint: /repo/security/gitleaks.txt:private-key:48
+
+[90m7:24PM[0m [32mINF[0m [1mscanned ~518295 bytes (518.29 KB) in 246ms[0m
+[90m7:24PM[0m [33mWRN[0m [1mleaks found: 8[0m

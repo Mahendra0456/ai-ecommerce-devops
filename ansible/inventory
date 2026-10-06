@@ -1,0 +1,10 @@
+[k3s]
+k3s-node ansible_host=172.31.1.64
+
+[elk]
+elk-server ansible_host=172.31.9.173
+
+[all:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/my-newkey.pem
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

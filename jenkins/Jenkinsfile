@@ -1,0 +1,112 @@
+pipeline {
+  agent any
+
+  environment {
+    IMAGE = "mahendra46/ecommerce"
+    TAG   = "${BUILD_NUMBER}"
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Install Dependencies') {
+      steps {
+        dir('application') {
+          sh 'npm ci'
+        }
+      }
+    }
+
+    stage('Build') {
+      steps {
+        dir('application') {
+          sh 'npm run build --if-present'
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        dir('application') {
+          sh 'npm test --if-present'
+        }
+      }
+    }
+
+    stage('Security Checks') {
+      steps {
+        sh 'cd application && npm audit --audit-level=critical || true'
+
+        sh '''
+          docker run --rm \
+            -v "$PWD:/repo" \
+            zricethezav/gitleaks:latest \
+            detect --source /repo --no-git || true
+        '''
+
+        sh 'trivy fs --severity HIGH,CRITICAL application/ || true'
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t $IMAGE:$TAG -f docker/Dockerfile .'
+      }
+    }
+
+    stage('Image Scan') {
+      steps {
+        sh 'trivy image --severity CRITICAL --exit-code 0 $IMAGE:$TAG'
+      }
+    }
+
+    stage('Push Image') {
+      steps {
+        withCredentials([
+          usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'U',
+            passwordVariable: 'P'
+          )
+        ]) {
+          sh 'echo $P | docker login -u $U --password-stdin'
+          sh 'docker push $IMAGE:$TAG'
+        }
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh '''
+          helm upgrade --install ecommerce helm/ecommerce \
+            -n ecommerce \
+            --set image.repository=$IMAGE \
+            --set image.tag=$TAG \
+            --wait \
+            --timeout 180s
+        '''
+      }
+    }
+
+    stage('Health Check') {
+      steps {
+        sh 'kubectl rollout status deploy/ecommerce -n ecommerce --timeout=120s'
+      }
+    }
+  }
+
+  post {
+    success {
+      echo 'Deployment Success'
+    }
+
+    failure {
+      sh 'kubectl rollout undo deploy/ecommerce -n ecommerce || true'
+    }
+  }
+}

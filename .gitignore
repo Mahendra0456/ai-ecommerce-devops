@@ -1,6 +1,21 @@
-node_modules/
-.env
-*.pem
-*.tfstate*
+# Secrets / credentials
+*.json
+**/*-credentials.json
+**/*service-account*.json
+**/*serviceaccount*.json
+
+# Terraform
 .terraform/
-*.log
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Private keys
+*.pem
+*.key

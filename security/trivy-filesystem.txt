@@ -1,0 +1,19 @@
+2026-10-07T00:54:40+05:30	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-07T00:54:40+05:30	INFO	[secret] Secret scanning is enabled
+2026-10-07T00:54:40+05:30	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-10-07T00:54:40+05:30	INFO	[secret] Please see https://trivy.dev/docs/v0.75/guide/scanner/secret#recommendation for faster secret detection
+2026-10-07T00:54:40+05:30	INFO	[npm] Run "npm install" to collect the license information of packages	dir="node_modules"
+2026-10-07T00:54:40+05:30	INFO	Number of language-specific files	num=1
+2026-10-07T00:54:40+05:30	INFO	[npm] Detecting vulnerabilities...
+
+Report Summary
+
+┌───────────────────┬──────┬─────────────────┬─────────┐
+│      Target       │ Type │ Vulnerabilities │ Secrets │
+├───────────────────┼──────┼─────────────────┼─────────┤
+│ package-lock.json │ npm  │        0        │    -    │
+└───────────────────┴──────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
