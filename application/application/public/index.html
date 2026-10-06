@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShopKart</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#f5f6fa;color:#222}
+header{background:#1e2a4a;color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+main{display:grid;grid-template-columns:3fr 1fr;gap:20px;padding:20px;max-width:1100px;margin:auto}
+#products{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.card{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 1px 4px #0002}
+.card .img{font-size:48px}
+button{background:#2d6cdf;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer}
+aside{background:#fff;border-radius:10px;padding:16px;height:fit-content;box-shadow:0 1px 4px #0002}
+@media(max-width:700px){main{grid-template-columns:1fr}}
+</style></head><body>
+<header><h2>🛒 ShopKart</h2><span id="status"></span></header>
+<main>
+<section><div id="products">Loading...</div></section>
+<aside><h3>Cart</h3><div id="cart">Empty</div><p><b>Total: ₹<span id="total">0</span></b></p>
+<button onclick="checkout()">Checkout</button><p id="msg"></p></aside>
+</main>
+<script>
+let cart={};let products=[];
+async function load(){
+  try{const r=await fetch('/api/products');if(!r.ok)throw 0;products=await r.json();
+    document.getElementById('products').innerHTML=products.map(p=>
+      `<div class="card"><div class="img">${p.image}</div><h4>${p.name}</h4><p>₹${p.price}</p><button onclick="add('${p._id}')">Add</button></div>`).join('');
+  }catch(e){document.getElementById('products').textContent='Could not load products.'}
+  const h=await fetch('/health').then(r=>r.json()).catch(()=>({}));
+  document.getElementById('status').textContent='DB: '+(h.db||'?');
+}
+function add(id){cart[id]=(cart[id]||0)+1;render()}
+function render(){
+  const ids=Object.keys(cart);let t=0;
+  document.getElementById('cart').innerHTML=ids.length?ids.map(id=>{const p=products.find(x=>x._id===id);t+=p.price*cart[id];return `<div>${p.name} x ${cart[id]}</div>`}).join(''):'Empty';
+  document.getElementById('total').textContent=t;
+}
+async function checkout(){
+  const items=Object.keys(cart).map(id=>{const p=products.find(x=>x._id===id);return{productId:id,name:p.name,price:p.price,qty:cart[id]}});
+  const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items,customer:'guest'})});
+  document.getElementById('msg').textContent=r.ok?'Order placed!':'Order failed';
+  if(r.ok){cart={};render()}
+}
+load();
+</script></body></html>
